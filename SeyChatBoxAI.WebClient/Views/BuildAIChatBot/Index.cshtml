@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "Build AI Chatbot";
+}
+
+@section Styles {
+    <!-- [Page specific CSS] start -->
+    <link rel="stylesheet" href="css/plugins/flatpickr.min.css" />
+    <!-- [Page specific CSS] end -->
+}
+
+@section Scripts {
+    <!-- [Page Specific JS] start -->
+    <script src="js/plugins/apexcharts.min.js"></script>
+    <script src="js/widgets/all-earnings-graph.js"></script>
+    <script src="js/widgets/page-views-graph.js"></script>
+    <script src="js/widgets/total-task-graph.js"></script>
+    <script src="js/widgets/download-graph.js"></script>
+    <script src="js/widgets/customer-rate-graph.js"></script>
+    <script src="js/widgets/tasks-graph.js"></script>
+    <script src="js/widgets/total-income-graph.js"></script>
+    <!-- [Page Specific JS] end -->
+    <!-- daterangepicker -->
+    <script src="js/plugins/flatpickr.min.js"></script>
+    <script>
+        // minimum setup
+        flatpickr(document.querySelector('#pc-date_range_picker-2'), {
+          mode: 'range'
+        });
+    </script>
+}
+
+<div class="row" id="dashboard">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <div class="avtar avtar-l bg-light-warning rounded-circle" id="logo">
+                            CJ
+                            @* <i class="ph-duotone ph-credit-card f-28"></i> *@
+                        </div>
+                        @* <div class="avtar bg-light-primary">
+                            <i class="ti ti-users f-24"></i>
+                        </div> *@
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        @* <p class="mb-1">SEY Solutions</p> *@
+                        <h4 class="mb-1" id="company-name">CJ OliveNetworks <span class="badge text-bg-success">Essential</span></h4>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p class="mb-0">Dialog Essential - 10000 queries</p>
+                            @* <span class="text-success fw-medium">30.6%</span> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 mb-2">
+                <h2 class="mb-0">Dashboard</h2>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-2">
+                <div class="input-group">
+                    <input type="text" id="pc-date_range_picker-2" class="form-control" placeholder="Select date range" />
+                    <span class="input-group-text"><i class="feather icon-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-12 col-md-12" id="chat-overview">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Chat Overview</h5>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="chat-overview-item bg-light-warning p-4 mt-3 rounded">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <div class="avtar avtar-m bg-warning">
+                                        <i class="fas fa-comment-dots text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="col-10" style="padding-left: 20px;">
+                                    <p class="mb-0">TOTAL CHATS</p>
+                                    <h3 class="text-primary mb-0 total-number">0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="chat-overview-item bg-light-yellow p-4 mt-3 rounded">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <div class="avtar avtar-m bg-yellow">
+                                        <i class="fas fa-comment-slash text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="col-10" style="padding-left: 20px;">
+                                    <p class="mb-0">MISSED CHATS</p>
+                                    <h3 class="text-primary mb-0 total-number">0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="chat-overview-item bg-light-blue p-4 mt-3 rounded">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <div class="avtar avtar-m bg-blue">
+                                        <i class="fas fa-history text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="col-10" style="padding-left: 20px;">
+                                    <p class="mb-0">REOPENED CHATS</p>
+                                    <h3 class="text-primary mb-0 total-number">0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="chat-overview-item bg-light-grey p-4 mt-3 rounded">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <div class="avtar avtar-m bg-grey">
+                                        <i class="fas fa-exchange-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="col-10" style="padding-left: 20px;">
+                                    <p class="mb-0">AVERAGE NUMBER OF INTERACTIONS PER CHATS</p>
+                                    <h3 class="text-primary mb-0 total-number">0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="chat-overview-item bg-light-navy p-4 mt-3 rounded">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <div class="avtar avtar-m bg-navy">
+                                        <i class="fas fa-hourglass-half text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="col-10" style="padding-left: 20px;">
+                                    <p class="mb-0">AVG CUSTOMER WAITING TIME (MINS)</p>
+                                    <h3 class="text-primary mb-0 total-number">0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="chat-overview-item bg-light-green p-4 mt-3 rounded">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <div class="avtar avtar-m bg-green">
+                                        <i class="fas fa-robot text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="col-10" style="padding-left: 20px;">
+                                    <p class="mb-0">FIRST CONTACT RESOLUTION (%)</p>
+                                    <h3 class="text-primary mb-0 total-number">0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

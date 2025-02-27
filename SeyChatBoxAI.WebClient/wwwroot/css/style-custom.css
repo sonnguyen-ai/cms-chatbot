@@ -1,0 +1,140 @@
+.pc-sidebar .m-header .logo-lg {
+    width: 80px;
+}
+
+#dashboard #company-name {
+    display: flex;
+    align-items: center;
+}
+
+#dashboard .badge {
+    font-size: 10px;
+    margin-left: 18px;
+}
+
+#dashboard .page-header-title {
+    margin-bottom: 24px;
+}
+
+#dashboard #chat-overview .bg-light-warning {
+    background: #fee8d1 !important;
+    color: #98735a;
+}
+
+    #dashboard #chat-overview .bg-light-warning p {
+        font-size: 11px;
+    }
+
+    #dashboard #chat-overview .bg-light-warning .bg-warning {
+        background: #fe8417 !important;
+        /*color: #9f740a;*/
+    }
+
+    #dashboard #chat-overview .bg-light-warning .total-number {
+        color: #98735a !important;
+    }
+
+#dashboard #chat-overview .bg-light-yellow {
+    background: #fef1c4;
+    color: #9f740a;
+}
+
+    #dashboard #chat-overview .bg-light-yellow p {
+        font-size: 11px;
+    }
+
+    #dashboard #chat-overview .bg-light-yellow .bg-yellow {
+        background: #ffc61d;
+        /*color: #9f740a;*/
+    }
+
+    #dashboard #chat-overview .bg-light-yellow .total-number {
+        color: #9f740a !important;
+    }
+
+#dashboard #chat-overview .bg-light-blue {
+    background: #d2f6fd;
+    color: #296970;
+}
+
+    #dashboard #chat-overview .bg-light-blue p {
+        font-size: 11px;
+    }
+
+    #dashboard #chat-overview .bg-light-blue .bg-blue {
+        background: #3abfe2;
+        /*color: #9f740a;*/
+    }
+
+    #dashboard #chat-overview .bg-light-blue .total-number {
+        color: #296970 !important;
+    }
+
+#dashboard #chat-overview .bg-light-grey {
+    background: #d8d8d8;
+    color: #9f9ea6;
+}
+
+    #dashboard #chat-overview .bg-light-grey p {
+        font-size: 11px;
+    }
+
+    #dashboard #chat-overview .bg-light-grey .bg-grey {
+        background: #aeaeae;
+        /*color: #9f740a;*/
+    }
+
+    #dashboard #chat-overview .bg-light-grey .total-number {
+        color: #9f9ea6 !important;
+    }
+
+#dashboard #chat-overview .bg-light-navy {
+    background: #dae4ff;
+    color: #14197d;
+}
+
+    #dashboard #chat-overview .bg-light-navy p {
+        font-size: 11px;
+    }
+
+    #dashboard #chat-overview .bg-light-navy .bg-navy {
+        background: #2255ff;
+        /*color: #9f740a;*/
+    }
+
+    #dashboard #chat-overview .bg-light-navy .total-number {
+        color: #14197d !important;
+    }
+
+#dashboard #chat-overview .bg-light-green {
+    background: #bbfdc0;
+    color: #4d935a;
+}
+
+    #dashboard #chat-overview .bg-light-green p {
+        font-size: 11px;
+    }
+
+    #dashboard #chat-overview .bg-light-green .bg-green {
+        background: #2fe440;
+        /*color: #9f740a;*/
+    }
+
+    #dashboard #chat-overview .bg-light-green .total-number {
+        color: #4d935a !important;
+    }
+
+#dashboard #chat-overview .chat-overview-item  {
+    height: 110px;
+    display: grid;
+}
+
+#dashboard #logo {
+    cursor: context-menu;
+    background-color: #fee8d1 !important;
+}
+
+#dashboard #logo:hover {
+    background-color: #fe8417 !important;
+    color: #fff;
+}
