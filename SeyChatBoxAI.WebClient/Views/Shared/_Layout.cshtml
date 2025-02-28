@@ -47,16 +47,13 @@
             <div class="loader-fill"></div>
         </div>
     </div>
-    <!-- [ Pre-loader ] End -->   
-
+    <!-- [ Pre-loader ] End -->
     <!-- [ Sidebar Menu ] start -->
     @await Html.PartialAsync("_Sidebar")
     <!-- [ Sidebar Menu ] end -->
-
     <!-- [ Header Topbar ] start -->
     @await Html.PartialAsync("_Header")
     <!-- [ Header ] end -->
-
     <!-- [ Main Content ] start -->
     <div class="pc-container">
         <div class="pc-content">
@@ -66,12 +63,11 @@
         </div>
     </div>
     <!-- [ Main Content ] end -->
-
     <!-- [ Footer ] start -->
     @await Html.PartialAsync("_Footer")
     <!-- [ Footer ] end -->
 
-   @*  <div class="pct-c-btn">
+    @*  <div class="pct-c-btn">
         <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_pc_layout">
             <i class="ph-duotone ph-gear-six"></i>
         </a>
@@ -296,7 +292,7 @@
         </div>
     </div>
  *@
-    
+
     <!-- Required Js -->
     <script src="js/plugins/popper.min.js"></script>
     <script src="js/plugins/simplebar.min.js"></script>
@@ -311,7 +307,12 @@
     <script src="js/theme.js"></script>
     <script src="js/multi-lang.js"></script>
     <script src="js/plugins/feather.min.js"></script>
+    <script src="js/common.js"></script>
 
+    <script type="text/javascript">
+        var common = new common();
+    </script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 
     @* <div class="floting-button">

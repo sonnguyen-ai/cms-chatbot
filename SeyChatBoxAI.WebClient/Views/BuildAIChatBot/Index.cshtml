@@ -3,172 +3,307 @@
 }
 
 @section Styles {
+    <link href="css/pages/build-ai-chatbot.css" rel="stylesheet" />
     <!-- [Page specific CSS] start -->
-    <link rel="stylesheet" href="css/plugins/flatpickr.min.css" />
+    <link rel="stylesheet" href="css/plugins/uppy.min.css" />
     <!-- [Page specific CSS] end -->
 }
 
 @section Scripts {
-    <!-- [Page Specific JS] start -->
-    <script src="js/plugins/apexcharts.min.js"></script>
-    <script src="js/widgets/all-earnings-graph.js"></script>
-    <script src="js/widgets/page-views-graph.js"></script>
-    <script src="js/widgets/total-task-graph.js"></script>
-    <script src="js/widgets/download-graph.js"></script>
-    <script src="js/widgets/customer-rate-graph.js"></script>
-    <script src="js/widgets/tasks-graph.js"></script>
-    <script src="js/widgets/total-income-graph.js"></script>
-    <!-- [Page Specific JS] end -->
-    <!-- daterangepicker -->
-    <script src="js/plugins/flatpickr.min.js"></script>
+    <!-- Ckeditor js -->
+    <script src="js/plugins/ckeditor/document/ckeditor.js"></script>
     <script>
-        // minimum setup
-        flatpickr(document.querySelector('#pc-date_range_picker-2'), {
-          mode: 'range'
+        (function () {
+          DecoupledEditor.create(document.querySelector('.document-editor__editable'))
+            .then((editor) => {
+              const toolbarContainer = document.querySelector('.document-editor__toolbar');
+              toolbarContainer.appendChild(editor.ui.view.toolbar.element);
+
+              // Thêm bộ đếm ký tự
+              let text = editor.getData().replace(/<[^>]*>/g, ''); // Loại bỏ HTML
+                  document.getElementById('char-count').innerText = `${text.length} / 4000 words`;
+
+              editor.model.document.on('change:data', () => {
+                  let text = editor.getData().replace(/<[^>]*>/g, ''); // Loại bỏ HTML
+                  document.getElementById('char-count').innerText = `${text.length} / 4000 words`;
+              });
+            })
+            .catch((error) => {});
+        })();
+    </script>
+
+
+    <!-- [Page Specific JS] start -->
+    <script src="js/plugins/uppy.min.js"></script>
+
+    <script type="module">
+        // Function for displaying uploaded files
+        const onUploadSuccess = (elForUploadedFiles) => (file, response) => {
+          const url = response.uploadURL;
+          const fileName = file.name;
+          debugger;
+
+          document.querySelector(elForUploadedFiles).innerHTML += common.UploadedFilesHTML(file);
+        };
+
+        import { Uppy, Tus, DragDrop, ProgressBar } from 'https://releases.transloadit.com/uppy/v3.23.0/uppy.min.mjs';
+
+        // for structure change upload files
+        const uppy2 = new Uppy({ debug: true, autoProceed: true })
+          .use(DragDrop, { target: '#files-drag-drop .for-DragDrop' })
+          .use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+          .use(ProgressBar, { target: '#files-drag-drop .for-ProgressBar', hideAfterFinish: false })
+          .on('upload-success', onUploadSuccess('#files-drag-drop .uploaded-files div#output-files'));
+
+        uppy2.on('success', (fileCount) => {
+          console.log(`${fileCount} files uploaded`);
         });
     </script>
+
+    <!-- To support older browsers, you can use the legacy bundle which adds a global `Uppy` object.  -->
+    <script nomodule src="https://releases.transloadit.com/uppy/v3.23.0/uppy.legacy.min.js"></script>
+    <script nomodule>
+        {
+          const { DragDrop, ProgressBar, Tus } = Uppy;
+          // for structure change upload files
+          const uppy2 = new Uppy.Uppy({ debug: true, autoProceed: true })
+            .use(DragDrop, { target: '#files-drag-drop .for-DragDrop' })
+            .use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+            .use(ProgressBar, { target: '#files-drag-drop .for-ProgressBar', hideAfterFinish: false })
+            .on('upload-success', onUploadSuccess('#files-drag-drop .uploaded-files div#output-files'));
+
+          uppy2.on('success', function (fileCount) {
+            console.log(`${fileCount} files uploaded`);
+          });
+        }
+    </script>
+    <!-- [Page Specific JS] end -->
 }
 
-<div class="row" id="dashboard">
-    <div class="col-lg-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0">
-                        <div class="avtar avtar-l bg-light-warning rounded-circle" id="logo">
-                            CJ
-                            @* <i class="ph-duotone ph-credit-card f-28"></i> *@
-                        </div>
-                        @* <div class="avtar bg-light-primary">
-                            <i class="ti ti-users f-24"></i>
-                        </div> *@
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                        @* <p class="mb-1">SEY Solutions</p> *@
-                        <h4 class="mb-1" id="company-name">CJ OliveNetworks <span class="badge text-bg-success">Essential</span></h4>
-
-                        <div class="d-flex align-items-center justify-content-between">
-                            <p class="mb-0">Dialog Essential - 10000 queries</p>
-                            @* <span class="text-success fw-medium">30.6%</span> *@
-                        </div>
-                    </div>
+<!-- [ breadcrumb ] start -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-default-icon m-0">
+        <li class="breadcrumb-item">
+            <a href="/"> <i class="ti ti-home-2 fs-6"></i></a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Build AI Chatbot</li>
+    </ol>
+</nav>
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <h2 class="mb-0">Build AI Chatbot</h2>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-12 col-md-12">
-        <div class="row">
-            <div class="col-lg-8 col-md-8 mb-2">
-                <h2 class="mb-0">Dashboard</h2>
-            </div>
-            <div class="col-lg-4 col-md-4 mb-2">
-                <div class="input-group">
-                    <input type="text" id="pc-date_range_picker-2" class="form-control" placeholder="Select date range" />
-                    <span class="input-group-text"><i class="feather icon-calendar"></i></span>
-                </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<div class="row" id="build-ai-chatbot">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body p-3">
+                <ul class="nav nav-pills nav-justified">
+                    <li class="nav-item" data-target-form="#contactDetailForm">
+                        <a href="#prompt-setting-tab" data-bs-toggle="tab" data-toggle="tab" class="nav-link active">
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-sm-inline">Prompt Setting</span>
+                        </a>
+                    </li>
+                    <!-- end nav item -->
+                    <li class="nav-item" data-target-form="#jobDetailForm">
+                        <a href="#upload-documents-tab" data-bs-toggle="tab" data-toggle="tab" class="nav-link icon-btn">
+                            <i class="fas fa-upload"></i>
+                            <span class="d-none d-sm-inline">Upload Documents</span>
+                        </a>
+                    </li>
+                    <!-- end nav item -->
+                    <li class="nav-item" data-target-form="#educationDetailForm">
+                        <a href="#educationDetail" data-bs-toggle="tab" data-toggle="tab" class="nav-link icon-btn">
+                            <i class="fas fa-link"></i>
+                            <span class="d-none d-sm-inline">Web URLs</span>
+                        </a>
+                    </li>
+                    <!-- end nav item -->
+                    <li class="nav-item">
+                        <a href="#finish" data-bs-toggle="tab" data-toggle="tab" class="nav-link icon-btn">
+                            <i class="fas fa-globe"></i>
+                            <span class="d-none d-sm-inline">Publishing Chatbot</span>
+                        </a>
+                    </li>
+                    <!-- end nav item -->
+                </ul>
             </div>
         </div>
 
-    </div>
-    <div class="col-lg-12 col-md-12" id="chat-overview">
         <div class="card">
             <div class="card-body">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Chat Overview</h5>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="chat-overview-item bg-light-warning p-4 mt-3 rounded">
-                            <div class="row align-items-center">
-                                <div class="col-2">
-                                    <div class="avtar avtar-m bg-warning">
-                                        <i class="fas fa-comment-dots text-white"></i>
+                <div class="tab-content">
+                    <!-- START: Define your progress bar here -->
+                    @* <div id="bar" class="progress mb-3" style="height: 7px">
+                        <div class="bar progress-bar progress-bar-striped progress-bar-animated bg-success"></div>
+                    </div> *@
+                    <!-- END: Define your progress bar here -->
+                    <!-- START: Define your tab pans here -->
+                    <div class="tab-pane show active" id="prompt-setting-tab">
+                        <form id="contactForm" method="get" action="/forms/form2_wizard.html">
+                            <div class="text-center">
+                                <h3 class="mb-2">Prompt Setting</h3>
+                                <small class="text-muted">Tailor AI responses with your custom guidlines</small>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-sm-12">
+                                    <div class="document-editor">
+                                        <div class="document-editor__toolbar"></div>
+                                        <div class="document-editor__editable-container">
+                                            <div class="document-editor__editable">
+                                                <h2 style="text-align: center">The Flavorful Tuscany Meetup</h2>
+                                                <h3 style="text-align: center">Welcome letter</h3>
+                                                <p>Dear Guest,</p>
+                                                <p>
+                                                    We are delighted to welcome you to the annual <i>Flavorful Tuscany Meetup</i> and hope you will enjoy the
+                                                    programmer as well as your stay at the <a href="http://ckeditor.com">Bilancino Hotel</a>.
+                                                </p>
+                                                <p>Please find below the full schedule of the event.</p>
+                                                <figure class="table ck-widget ck-widget_selectable" contenteditable="false">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="ck-editor__editable ck-editor__nested-editable" contenteditable="true" colspan="2">Saturday, July 14</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="ck-editor__editable ck-editor__nested-editable" contenteditable="true">
+                                                                    9:30&nbsp;AM&nbsp;-&nbsp;11:30&nbsp;AM
+                                                                </td>
+                                                                <td class="ck-editor__editable ck-editor__nested-editable" contenteditable="true">
+                                                                    Americano vs. Brewed - “know coffee” with <strong>Stefano Garau</strong>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ck-editor__editable ck-editor__nested-editable" contenteditable="true">
+                                                                    1:00&nbsp;PM&nbsp;-&nbsp;3:00&nbsp;PM
+                                                                </td>
+                                                                <td class="ck-editor__editable ck-editor__nested-editable" contenteditable="true">
+                                                                    Pappardelle al pomodoro - <mark class="marker-yellow">live cooking</mark> with
+                                                                    <strong>Rita</strong>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ck-editor__editable ck-editor__nested-editable" contenteditable="true">
+                                                                    5:00&nbsp;PM&nbsp;-&nbsp;8:00&nbsp;PM
+                                                                </td>
+                                                                <td class="ck-editor__editable ck-editor__nested-editable" contenteditable="true">
+                                                                    Tuscan vineyards at a glancewith <strong>Frederico Riscoli</strong>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </figure>
+                                                <blockquote>
+                                                    <p>
+                                                        The annual Flavorful Tuscany meetups are always a culinary discovery. You get the best of Tuscan flavors during
+                                                        an intense one-day stay at one of the top hotels of the region. All the sessions are lead by top chefs passionate
+                                                        about their profession. I would certainly recommend to save the date in your calendar for this one!
+                                                    </p>
+                                                    <p>Angelina Calvino, food journalist</p>
+                                                </blockquote>
+                                                <p>
+                                                    Please arrive at the <a href="http://ckeditor.com">Bilancino Hotel</a> reception desk
+                                                    <mark class="marker-yellow">at least half an hour earlier</mark> to make sure that the registration process goes as
+                                                    smoothly as possible.
+                                                </p>
+                                                <p>We look forward to welcoming you to the event.</p>
+                                                <p><strong>Victoria Valc</strong></p>
+                                                <p><strong>Event Manager</strong></p>
+                                                <p><strong>Bilancino Hotel</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-sm-6" id="char-count-group">
+                                                <b id="char-count" class="m-0">0 / 4000 words</b> <!-- Hiển thị số ký tự -->
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <button type="button" class="btn btn-info" id="btn-save-prompt"><i class="fas fa-save me-2"></i>Save prompt</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-10" style="padding-left: 20px;">
-                                    <p class="mb-0">TOTAL CHATS</p>
-                                    <h3 class="text-primary mb-0 total-number">0</h3>
-                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="chat-overview-item bg-light-yellow p-4 mt-3 rounded">
-                            <div class="row align-items-center">
-                                <div class="col-2">
-                                    <div class="avtar avtar-m bg-yellow">
-                                        <i class="fas fa-comment-slash text-white"></i>
+                    <!-- end contact detail tab pane -->
+                    <div class="tab-pane" id="upload-documents-tab">
+                        <form id="jobForm" method="post" action="#">
+                            <div class="text-center">
+                                <h3 class="mb-2">Upload Documents</h3>
+                                <small class="text-muted">Train Your Model with Custom Files</small>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-sm-12">
+                                    <div id="files-drag-drop">
+                                        <div class="for-DragDrop"></div>
+                                        <div class="for-ProgressBar"></div>
+                                        <div class="uploaded-files mt-5">
+                                            <h5>Your Uploaded Files<span id="file-count"> (1 files):</span></h5>
+                                            <div class="row" id="output-files">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-10" style="padding-left: 20px;">
-                                    <p class="mb-0">MISSED CHATS</p>
-                                    <h3 class="text-primary mb-0 total-number">0</h3>
-                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="chat-overview-item bg-light-blue p-4 mt-3 rounded">
-                            <div class="row align-items-center">
-                                <div class="col-2">
-                                    <div class="avtar avtar-m bg-blue">
-                                        <i class="fas fa-history text-white"></i>
+                    <!-- end job detail tab pane -->
+                    <div class="tab-pane" id="educationDetail">
+                        <form id="educationForm" method="post" action="#">
+                            <div class="text-center">
+                                <h3 class="mb-2">Tell us about your education</h3>
+                                <small class="text-muted">Let us know your name and email address. Use an address you don't mind other users contacting you at</small>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="schoolName">School Name</label>
+                                        <input type="text" class="form-control" id="schoolName" placeholder="enter your school name" />
                                     </div>
                                 </div>
-                                <div class="col-10" style="padding-left: 20px;">
-                                    <p class="mb-0">REOPENED CHATS</p>
-                                    <h3 class="text-primary mb-0 total-number">0</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="chat-overview-item bg-light-grey p-4 mt-3 rounded">
-                            <div class="row align-items-center">
-                                <div class="col-2">
-                                    <div class="avtar avtar-m bg-grey">
-                                        <i class="fas fa-exchange-alt text-white"></i>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="schoolLocation">School Location</label>
+                                        <input type="text" class="form-control" id="schoolLocation" placeholder="enter your school location" />
                                     </div>
                                 </div>
-                                <div class="col-10" style="padding-left: 20px;">
-                                    <p class="mb-0">AVERAGE NUMBER OF INTERACTIONS PER CHATS</p>
-                                    <h3 class="text-primary mb-0 total-number">0</h3>
-                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="chat-overview-item bg-light-navy p-4 mt-3 rounded">
-                            <div class="row align-items-center">
-                                <div class="col-2">
-                                    <div class="avtar avtar-m bg-navy">
-                                        <i class="fas fa-hourglass-half text-white"></i>
+                    <!-- end education detail tab pane -->
+                    <div class="tab-pane" id="finish">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-lg-6">
+                                <div class="text-center">
+                                    <i class="ph-duotone ph-gift f-50 text-danger"></i>
+                                    <h3 class="mt-4 mb-3">Thank you !</h3>
+                                    <div class="mb-3">
+                                        <div class="form-check d-inline-block">
+                                            <input type="checkbox" class="form-check-input" id="customCheck1" />
+                                            <label class="form-check-label" for="customCheck1">I agree with the Terms and Conditions</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-10" style="padding-left: 20px;">
-                                    <p class="mb-0">AVG CUSTOMER WAITING TIME (MINS)</p>
-                                    <h3 class="text-primary mb-0 total-number">0</h3>
-                                </div>
                             </div>
+                            <!-- end col -->
                         </div>
+                        <!-- end row -->
                     </div>
-                    <div class="col-sm-4">
-                        <div class="chat-overview-item bg-light-green p-4 mt-3 rounded">
-                            <div class="row align-items-center">
-                                <div class="col-2">
-                                    <div class="avtar avtar-m bg-green">
-                                        <i class="fas fa-robot text-white"></i>
-                                    </div>
-                                </div>
-                                <div class="col-10" style="padding-left: 20px;">
-                                    <p class="mb-0">FIRST CONTACT RESOLUTION (%)</p>
-                                    <h3 class="text-primary mb-0 total-number">0</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- END: Define your tab pans here -->
                 </div>
             </div>
         </div>
+        <!-- end tab content-->
     </div>
 </div>
