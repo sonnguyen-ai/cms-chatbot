@@ -123,3 +123,31 @@
 #upload-documents-tab #output-files .card-body {
     padding: 15px;
 }
+
+#btn-delete-web-url,
+#btn-save-train-web-url {
+    margin-left: 15px;
+}
+
+.web-url-item div {
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    float: left;
+    margin-right: 10px;
+}
+
+#web-urls-tab button {
+    width: 175px;
+    margin-bottom: 15px;
+}
+
+#web-urls-tab button i {
+    vertical-align: text-top;
+}
+
+#web-urls-tab .button-groups {
+    text-align: right;
+}

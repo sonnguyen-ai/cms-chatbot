@@ -80,6 +80,11 @@
         }
     </script>
     <!-- [Page Specific JS] end -->
+
+    <script src="js/pages/build-ai-chatbot.js"></script>
+    <script type="text/javascript">
+        var buildAIChatbot = new buildAIChatbot();
+    </script>
 }
 
 <!-- [ breadcrumb ] start -->
@@ -124,7 +129,7 @@
                     </li>
                     <!-- end nav item -->
                     <li class="nav-item" data-target-form="#educationDetailForm">
-                        <a href="#educationDetail" data-bs-toggle="tab" data-toggle="tab" class="nav-link icon-btn">
+                        <a href="#web-urls-tab" data-bs-toggle="tab" data-toggle="tab" class="nav-link icon-btn">
                             <i class="fas fa-link"></i>
                             <span class="d-none d-sm-inline">Web URLs</span>
                         </a>
@@ -226,10 +231,10 @@
                                             </div>
                                         </div>
                                         <div class="row mt-3">
-                                            <div class="col-sm-6" id="char-count-group">
+                                            <div class="col-6" id="char-count-group">
                                                 <b id="char-count" class="m-0">0 / 4000 words</b> <!-- Hiển thị số ký tự -->
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-6">
                                                 <button type="button" class="btn btn-info" id="btn-save-prompt"><i class="fas fa-save me-2"></i>Save prompt</button>
                                             </div>
                                         </div>
@@ -261,23 +266,24 @@
                         </form>
                     </div>
                     <!-- end job detail tab pane -->
-                    <div class="tab-pane" id="educationDetail">
+                    <div class="tab-pane" id="web-urls-tab">
                         <form id="educationForm" method="post" action="#">
                             <div class="text-center">
-                                <h3 class="mb-2">Tell us about your education</h3>
-                                <small class="text-muted">Let us know your name and email address. Use an address you don't mind other users contacting you at</small>
+                                <h3 class="mb-2">Web URLs</h3>
+                                <small class="text-muted">Train your AI with Online Knowledge and Insights</small>
                             </div>
                             <div class="row mt-4">
-                                <div class="col-md-12">
+                                <div class="col-md-12 web-url-item">
                                     <div class="mb-3">
-                                        <label class="form-label" for="schoolName">School Name</label>
-                                        <input type="text" class="form-control" id="schoolName" placeholder="enter your school name" />
+                                        <input type="checkbox" name="chk-web-url-1" class="form-check-input input-primary" id="chk-web-url-1">
+                                        <input type="text" class="form-control" id="txt-web-url-1" placeholder="Please enter your Web URL 1" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="schoolLocation">School Location</label>
-                                        <input type="text" class="form-control" id="schoolLocation" placeholder="enter your school location" />
+                                    <div class="mb-3 button-groups">
+                                        <button type="button" class="btn btn-info" id="btn-add-web-url"><i class="fas fa-plus me-2"></i>Add Web URL</button>
+                                        <button type="button" class="btn btn-danger" id="btn-delete-web-url"><i class="fas fa-times me-2"></i>Delete Web URL</button>
+                                        <button type="button" class="btn btn-info" id="btn-save-train-web-url"><i class="fas fa-save me-2"></i>Save and Train AI</button>
                                     </div>
                                 </div>
                             </div>
