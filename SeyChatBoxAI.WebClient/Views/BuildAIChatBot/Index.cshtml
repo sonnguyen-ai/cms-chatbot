@@ -39,11 +39,13 @@
     <script type="module">
         // Function for displaying uploaded files
         const onUploadSuccess = (elForUploadedFiles) => (file, response) => {
-          const url = response.uploadURL;
-          const fileName = file.name;
-          debugger;
+           const url = response.uploadURL;
 
-          document.querySelector(elForUploadedFiles).innerHTML += common.UploadedFilesHTML(file);
+           document.querySelector(elForUploadedFiles).innerHTML += common.UploadedFilesHTML(file);
+           
+           let fileCount = document.querySelectorAll('#files-drag-drop .uploaded-files div#output-files .file-item').length;
+
+           document.querySelector('#files-drag-drop .uploaded-files #file-count').innerHTML = ' (' + fileCount + ' files):';
         };
 
         import { Uppy, Tus, DragDrop, ProgressBar } from 'https://releases.transloadit.com/uppy/v3.23.0/uppy.min.mjs';
@@ -249,7 +251,7 @@
                                         <div class="for-DragDrop"></div>
                                         <div class="for-ProgressBar"></div>
                                         <div class="uploaded-files mt-5">
-                                            <h5>Your Uploaded Files<span id="file-count"> (1 files):</span></h5>
+                                            <h5>Your Uploaded Files<span id="file-count"></span></h5>
                                             <div class="row" id="output-files">
                                             </div>
                                         </div>

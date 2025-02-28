@@ -7,7 +7,6 @@ common.prototype = {
         this.RegisterEvent();
     },
     RegisterEvent: function () {
-        debugger;
     },
     FormatBytes: function (bytes, decimals = 2) {
         if (bytes === 0) return '0 Bytes';
@@ -40,9 +39,8 @@ common.prototype = {
         if (file) {
             let fileName = file.name;
             let fileSize = file.size; // bytes
-            let extension = file.extension;
 
-            let fileHTML = `<div class="col-md-6 col-xl-3">
+            let fileHTML = `<div class="col-md-6 col-xl-3 file-item">
                               <div class="card">
                                 <div class="card-body">
                                   <div class="d-flex">
