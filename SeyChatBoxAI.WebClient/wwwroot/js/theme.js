@@ -232,7 +232,7 @@ function layout_change(layout) {
     dark_flag = false;
 
     // Update logo to dark version for light theme
-      updateLogo('.pc-sidebar .m-header .logo-lg', 'https://cjvietnam.vn/images/cj_logo_w.png');//https://seysolutions.com/images/SEY_Solutions_Logo.png
+      updateLogo('.pc-sidebar .m-header .logo-lg', 'https://seysolutions.com/images/SEY_Solutions_Logo.png');//https://cjvietnam.vn/images/cj_logo_w.png
     updateLogo('.navbar-brand .logo-lg', 'images/logo-dark.svg');
     updateLogo('.auth-main.v1 .auth-sidefooter img', 'images/logo-dark.svg');
     updateLogo('.footer-top .footer-logo', 'images/logo-dark.svg');

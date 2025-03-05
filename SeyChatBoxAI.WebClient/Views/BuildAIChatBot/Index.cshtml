@@ -42,7 +42,7 @@
            const url = response.uploadURL;
 
            document.querySelector(elForUploadedFiles).innerHTML += common.UploadedFilesHTML(file);
-           
+
            let fileCount = document.querySelectorAll('#files-drag-drop .uploaded-files div#output-files .file-item').length;
 
            document.querySelector('#files-drag-drop .uploaded-files #file-count').innerHTML = ' (' + fileCount + ' files):';
@@ -85,6 +85,23 @@
     <script type="text/javascript">
         var buildAIChatbot = new buildAIChatbot();
     </script>
+
+    <!-- [Page Specific JS] start -->
+    <script>
+        // scroll-block
+        var tc = document.querySelectorAll('.scroll-block');
+        for (var t = 0; t < tc.length; t++) {
+          new SimpleBar(tc[t]);
+        }
+        setTimeout(function () {
+          var element = document.querySelector('.chat-content .scroll-block .simplebar-content-wrapper');
+          var elementheight = document.querySelector('.chat-content .scroll-block .simplebar-content');
+          var off = elementheight.getBoundingClientRect();
+          var h = off.height;
+          element.scrollTop += h;
+        }, 100);
+    </script>
+    <!-- [Page Specific JS] end -->
 }
 
 <!-- [ breadcrumb ] start -->
@@ -136,7 +153,7 @@
                     </li>
                     <!-- end nav item -->
                     <li class="nav-item">
-                        <a href="#finish" data-bs-toggle="tab" data-toggle="tab" class="nav-link icon-btn">
+                        <a href="#publishing-chatbot" data-bs-toggle="tab" data-toggle="tab" class="nav-link icon-btn">
                             <i class="fas fa-globe"></i>
                             <span class="d-none d-sm-inline">Publishing Chatbot</span>
                         </a>
@@ -290,23 +307,592 @@
                         </form>
                     </div>
                     <!-- end education detail tab pane -->
-                    <div class="tab-pane" id="finish">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-lg-6">
-                                <div class="text-center">
-                                    <i class="ph-duotone ph-gift f-50 text-danger"></i>
-                                    <h3 class="mt-4 mb-3">Thank you !</h3>
-                                    <div class="mb-3">
-                                        <div class="form-check d-inline-block">
-                                            <input type="checkbox" class="form-check-input" id="customCheck1" />
-                                            <label class="form-check-label" for="customCheck1">I agree with the Terms and Conditions</label>
+                    <div class="tab-pane" id="publishing-chatbot">
+                        <form id="educationForm" method="post" action="#">
+                            <div class="text-center">
+                                <h3 class="mb-2">Publishing Chatbot</h3>
+                                <small class="text-muted">Customize and add your chatbot to your website</small>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-lg-6" id="customize-settings">
+                                    <div class="card">
+                                        <div class="card-header pb-0 pt-2">
+                                            <ul class="nav nav-tabs analytics-tab" id="myTab" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active" id="customize-tab" data-bs-toggle="tab" data-bs-target="#customize-tab-pane" type="button" role="tab" aria-controls="customize-tab-pane" aria-selected="true">Customize</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="embed-code-tab" data-bs-toggle="tab" data-bs-target="#embed-code-tab-pane" type="button" role="tab" aria-controls="embed-code-tab-pane" aria-selected="false" tabindex="-1">Embed Code</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="tab-content" id="myTabContent">
+                                                        <div class="tab-pane fade active show" id="customize-tab-pane" role="tabpanel" aria-labelledby="customize-tab" tabindex="0">
+                                                            <div class="row">
+                                                                <div class="col-2 bot-icon-attachment">
+                                                                    <div class="user-upload wid-80">
+                                                                        <img src="https://seysolutions.com/images/SEY_Solutions_Logo.png" alt="img" class="img-fluid wid-80" />
+                                                                        <label for="uplfile" class="img-avtar-upload">
+                                                                            <i class="ti ti-camera f-24 mb-1"></i>
+                                                                            <span>Upload</span>
+                                                                        </label>
+                                                                        <input type="file" id="uplfile" class="d-none" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-8 bot-icon-note">
+                                                                    <p>Bot Icon</p>
+                                                                    <ul>
+                                                                        <li>Max file size 300KB</li>
+                                                                        <li>Accept PNG, JPEG and SVG</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Bot Name</label>
+                                                                        <input type="text" class="form-control" id="txt-bot-name" value="" placeholder="Please enter Bot Name..." />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Welcome Message</label>
+                                                                        <input type="text" class="form-control" id="txt-welcome-message" value="" placeholder="Please enter Welcome Message..." />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6 col-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="clp-primary-color">Primary Color</label>
+                                                                        <input type="color"
+                                                                               class="form-control form-control-color"
+                                                                               id="clp-primary-color"
+                                                                               value="#563d7c"
+                                                                               title="Choose your color" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="clp-secondary-color">Secondary Color</label>
+                                                                        <input type="color"
+                                                                               class="form-control form-control-color"
+                                                                               id="clp-secondary-color"
+                                                                               value="#ffffff"
+                                                                               title="Choose your color" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="txt-bottom-position">Bottom (px)</label>
+                                                                        <input type="range" class="form-range" id="txt-bottom-position" min="0" max="500" />
+                                                                        <input type="number" class="form-control" id="txt-bottom-value" min="0" max="500" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="txt-right-position">Right (px)</label>
+                                                                        <input type="range" class="form-range" id="txt-right-position" min="0" max="500" />
+                                                                        <input type="number" class="form-control" id="txt-right-value" min="0" max="500" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <button type="button" class="btn btn-info" id="btn-save-settings"><i class="fas fa-save me-2"></i>Save Settings</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="embed-code-tab-pane" role="tabpanel" aria-labelledby="embed-code-tab" tabindex="0">
+                                                            <div class="mb-3">
+                                                                <textarea class="form-control" id="txt-embed-code" rows="25"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" id="preview-settings">
+                                    <div class="card preview-settings-group">
+                                        <div class="card-body preview-settings-group-body">
+                                            <div class="row">
+                                                <div class="col-12 shadow rounded p-0">
+
+                                                    <div class="chat-wrapper">
+                                                        <div class="chat-content">
+                                                            <div class="card mb-0">
+                                                                <div class="card-header p-3">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <ul class="list-inline me-auto mb-0">
+
+                                                                            <li class="list-inline-item">
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <div class="chat-avtar">
+                                                                                        <img class="img-fluid wid-40" src="https://seysolutions.com/images/SEY_Solutions_Logo.png" alt="User image" />
+                                                                                        <i class="chat-badge bg-success"></i>
+                                                                                    </div>
+                                                                                    <div class="flex-grow-1 mx-3 d-none d-sm-inline-block">
+                                                                                        <h6 class="mb-0">Sey bot</h6>
+                                                                                        @* <span class="text-sm text-muted">chatbot</span> *@
+                                                                                    </div>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <ul class="list-inline ms-auto mb-0">
+                                                                            <li class="list-inline-item">
+                                                                                <a href="#" class="avtar avtar-s btn-link-secondary">
+                                                                                    <i class="ti ti-phone-call f-18"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="list-inline-item">
+                                                                                <a href="#" class="avtar avtar-s btn-link-secondary">
+                                                                                    <i class="ti ti-video f-18"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="list-inline-item">
+                                                                                <a href="#"
+                                                                                   class="d-xxl-none avtar avtar-s btn-link-secondary"
+                                                                                   data-bs-toggle="offcanvas"
+                                                                                   data-bs-target="#offcanvas_User_info">
+                                                                                    <i class="ti ti-info-circle f-18"></i>
+                                                                                </a>
+                                                                                <a href="#"
+                                                                                   class="d-none d-xxl-inline-flex avtar avtar-s btn-link-secondary"
+                                                                                   data-bs-toggle="collapse"
+                                                                                   data-bs-target="#chat-user_info">
+                                                                                    <i class="ti ti-info-circle f-18"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="scroll-block chat-message">
+                                                                    <div class="card-body">
+                                                                        <div class="message-out">
+                                                                            <div class="d-flex align-items-end flex-column">
+                                                                                <p class="mb-1 text-muted"><small>9h ago</small></p>
+                                                                                <div class="message d-flex align-items-end flex-column">
+                                                                                    <div class="d-flex align-items-center mb-1 chat-msg">
+                                                                                        <div class="flex-shrink-0">
+                                                                                            <ul class="list-inline ms-auto mb-0 chat-msg-option">
+                                                                                                <li class="list-inline-item">
+                                                                                                    <div class="dropdown">
+                                                                                                        <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none"
+                                                                                                           href="#"
+                                                                                                           data-bs-toggle="dropdown"
+                                                                                                           aria-haspopup="true"
+                                                                                                           aria-expanded="false">
+                                                                                                            <i class="ti ti-dots-vertical f-18"></i>
+                                                                                                        </a>
+                                                                                                        <div class="dropdown-menu">
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-back-up"></i> Reply</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-forward-up"></i> Forward</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-copy"></i> Copy</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Delete</a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li class="list-inline-item">
+                                                                                                    <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                                        <i class="ti ti-edit-circle f-18"></i>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="flex-grow-1 ms-3">
+                                                                                            <div class="msg-content bg-primary">
+                                                                                                <p class="mb-0">Hi...Henny!!</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="d-flex align-items-center mb-1 chat-msg">
+                                                                                        <div class="flex-shrink-0">
+                                                                                            <ul class="list-inline ms-auto mb-0 chat-msg-option">
+                                                                                                <li class="list-inline-item">
+                                                                                                    <div class="dropdown">
+                                                                                                        <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none"
+                                                                                                           href="#"
+                                                                                                           data-bs-toggle="dropdown"
+                                                                                                           aria-haspopup="true"
+                                                                                                           aria-expanded="false">
+                                                                                                            <i class="ti ti-dots-vertical f-18"></i>
+                                                                                                        </a>
+                                                                                                        <div class="dropdown-menu">
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-back-up"></i> Reply</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-forward-up"></i> Forward</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-copy"></i> Copy</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Delete</a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li class="list-inline-item">
+                                                                                                    <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                                        <i class="ti ti-edit-circle f-18"></i>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="flex-grow-1 ms-3">
+                                                                                            <div class="msg-content bg-primary">
+                                                                                                <p class="mb-0">How can i cap you today?</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="message-in">
+                                                                            <div class="d-flex">
+                                                                                <div class="flex-shrink-0">
+                                                                                    <div class="chat-avtar">
+                                                                                        <img class="rounded-circle img-fluid wid-40" src="images/user/avatar-3.jpg" alt="User image" />
+                                                                                        <i class="chat-badge bg-success"></i>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="flex-grow-1 mx-3">
+                                                                                    <div class="d-flex align-items-start flex-column">
+                                                                                        <p class="mb-1 text-muted">Agilulf Fuxg <small>11:23 AM</small></p>
+                                                                                        <div class="message d-flex align-items-start flex-column">
+                                                                                            <div class="d-flex align-items-center mb-1 chat-msg">
+                                                                                                <div class="flex-grow-1 me-3">
+                                                                                                    <div class="msg-content card mb-0">
+                                                                                                        <p class="mb-0">Hey.. Bill</p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="flex-shrink-0">
+                                                                                                    <ul class="list-inline ms-auto mb-0 chat-msg-option">
+                                                                                                        <li class="list-inline-item">
+                                                                                                            <div class="dropdown">
+                                                                                                                <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none"
+                                                                                                                   href="#"
+                                                                                                                   data-bs-toggle="dropdown"
+                                                                                                                   aria-haspopup="true"
+                                                                                                                   aria-expanded="false">
+                                                                                                                    <i class="ti ti-dots-vertical f-18"></i>
+                                                                                                                </a>
+                                                                                                                <div class="dropdown-menu">
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-arrow-back-up"></i> Reply</a>
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-arrow-forward-up"></i> Forward</a>
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-copy"></i> Copy</a>
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Delete</a>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                        <li class="list-inline-item">
+                                                                                                            <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                                                <i class="ti ti-edit-circle f-18"></i>
+                                                                                                            </a>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="d-flex align-items-center mb-1 chat-msg">
+                                                                                                <div class="flex-grow-1 me-3">
+                                                                                                    <div class="msg-content card mb-0">
+                                                                                                        <p class="mb-0">nice to meet you!</p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="flex-shrink-0">
+                                                                                                    <ul class="list-inline ms-auto mb-0 chat-msg-option">
+                                                                                                        <li class="list-inline-item">
+                                                                                                            <div class="dropdown">
+                                                                                                                <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none"
+                                                                                                                   href="#"
+                                                                                                                   data-bs-toggle="dropdown"
+                                                                                                                   aria-haspopup="true"
+                                                                                                                   aria-expanded="false">
+                                                                                                                    <i class="ti ti-dots-vertical f-18"></i>
+                                                                                                                </a>
+                                                                                                                <div class="dropdown-menu">
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-arrow-back-up"></i> Reply</a>
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-arrow-forward-up"></i> Forward</a>
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-copy"></i> Copy</a>
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Delete</a>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                        <li class="list-inline-item">
+                                                                                                            <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                                                <i class="ti ti-edit-circle f-18"></i>
+                                                                                                            </a>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="message-out">
+                                                                            <div class="d-flex align-items-end flex-column">
+                                                                                <p class="mb-1 text-muted"><small>9h ago</small></p>
+                                                                                <div class="message d-flex align-items-end flex-column">
+                                                                                    <div class="d-flex align-items-center mb-1 chat-msg">
+                                                                                        <div class="flex-shrink-0">
+                                                                                            <ul class="list-inline ms-auto mb-0 chat-msg-option">
+                                                                                                <li class="list-inline-item">
+                                                                                                    <div class="dropdown">
+                                                                                                        <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none"
+                                                                                                           href="#"
+                                                                                                           data-bs-toggle="dropdown"
+                                                                                                           aria-haspopup="true"
+                                                                                                           aria-expanded="false">
+                                                                                                            <i class="ti ti-dots-vertical f-18"></i>
+                                                                                                        </a>
+                                                                                                        <div class="dropdown-menu">
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-back-up"></i> Reply</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-forward-up"></i> Forward</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-copy"></i> Copy</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Delete</a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li class="list-inline-item">
+                                                                                                    <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                                        <i class="ti ti-edit-circle f-18"></i>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="flex-grow-1 ms-3">
+                                                                                            <div class="msg-content bg-primary">
+                                                                                                <p class="mb-0">Hi...Henny!!</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="d-flex align-items-center mb-1 chat-msg">
+                                                                                        <div class="flex-shrink-0">
+                                                                                            <ul class="list-inline ms-auto mb-0 chat-msg-option">
+                                                                                                <li class="list-inline-item">
+                                                                                                    <div class="dropdown">
+                                                                                                        <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none"
+                                                                                                           href="#"
+                                                                                                           data-bs-toggle="dropdown"
+                                                                                                           aria-haspopup="true"
+                                                                                                           aria-expanded="false">
+                                                                                                            <i class="ti ti-dots-vertical f-18"></i>
+                                                                                                        </a>
+                                                                                                        <div class="dropdown-menu">
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-back-up"></i> Reply</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-forward-up"></i> Forward</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-copy"></i> Copy</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Delete</a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li class="list-inline-item">
+                                                                                                    <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                                        <i class="ti ti-edit-circle f-18"></i>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="flex-grow-1 ms-3">
+                                                                                            <div class="msg-content bg-primary">
+                                                                                                <p class="mb-0">Are u listening me ?</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="d-flex align-items-center mb-1 chat-msg">
+                                                                                        <div class="flex-shrink-0">
+                                                                                            <ul class="list-inline ms-auto mb-0 chat-msg-option">
+                                                                                                <li class="list-inline-item">
+                                                                                                    <div class="dropdown">
+                                                                                                        <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none"
+                                                                                                           href="#"
+                                                                                                           data-bs-toggle="dropdown"
+                                                                                                           aria-haspopup="true"
+                                                                                                           aria-expanded="false">
+                                                                                                            <i class="ti ti-dots-vertical f-18"></i>
+                                                                                                        </a>
+                                                                                                        <div class="dropdown-menu">
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-back-up"></i> Reply</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-forward-up"></i> Forward</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-copy"></i> Copy</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Delete</a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li class="list-inline-item">
+                                                                                                    <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                                        <i class="ti ti-edit-circle f-18"></i>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="flex-grow-1 ms-3">
+                                                                                            <div class="msg-content bg-primary">
+                                                                                                <p class="mb-0">How can i cap you today?</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="message-in">
+                                                                            <div class="d-flex">
+                                                                                <div class="flex-shrink-0">
+                                                                                    <div class="chat-avtar">
+                                                                                        <img class="rounded-circle img-fluid wid-40" src="images/user/avatar-3.jpg" alt="User image" />
+                                                                                        <i class="chat-badge bg-success"></i>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="flex-grow-1 mx-3">
+                                                                                    <div class="d-flex align-items-start flex-column">
+                                                                                        <p class="mb-1 text-muted">Agilulf Fuxg <small>11:23 AM</small></p>
+                                                                                        <div class="message d-flex align-items-start flex-column">
+                                                                                            <div class="d-flex align-items-center mb-1 chat-msg">
+                                                                                                <div class="flex-grow-1 me-3">
+                                                                                                    <div class="msg-content card mb-0">
+                                                                                                        <p class="mb-0">
+                                                                                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                                                                                                            industry's standard dummy text ever since the 1500s.
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="flex-shrink-0">
+                                                                                                    <ul class="list-inline ms-auto mb-0 chat-msg-option">
+                                                                                                        <li class="list-inline-item">
+                                                                                                            <div class="dropdown">
+                                                                                                                <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none"
+                                                                                                                   href="#"
+                                                                                                                   data-bs-toggle="dropdown"
+                                                                                                                   aria-haspopup="true"
+                                                                                                                   aria-expanded="false">
+                                                                                                                    <i class="ti ti-dots-vertical f-18"></i>
+                                                                                                                </a>
+                                                                                                                <div class="dropdown-menu">
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-arrow-back-up"></i> Reply</a>
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-arrow-forward-up"></i> Forward</a>
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-copy"></i> Copy</a>
+                                                                                                                    <a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Delete</a>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                        <li class="list-inline-item">
+                                                                                                            <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                                                <i class="ti ti-edit-circle f-18"></i>
+                                                                                                            </a>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="message-out">
+                                                                            <div class="d-flex align-items-end flex-column">
+                                                                                <p class="mb-1 text-muted"><small>9h ago</small></p>
+                                                                                <div class="message d-flex align-items-end flex-column">
+                                                                                    <div class="d-flex align-items-center mb-1 chat-msg">
+                                                                                        <div class="flex-shrink-0">
+                                                                                            <ul class="list-inline ms-auto mb-0 chat-msg-option">
+                                                                                                <li class="list-inline-item">
+                                                                                                    <div class="dropdown">
+                                                                                                        <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none"
+                                                                                                           href="#"
+                                                                                                           data-bs-toggle="dropdown"
+                                                                                                           aria-haspopup="true"
+                                                                                                           aria-expanded="false">
+                                                                                                            <i class="ti ti-dots-vertical f-18"></i>
+                                                                                                        </a>
+                                                                                                        <div class="dropdown-menu">
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-back-up"></i> Reply</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-arrow-forward-up"></i> Forward</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-copy"></i> Copy</a>
+                                                                                                            <a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Delete</a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li class="list-inline-item">
+                                                                                                    <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                                        <i class="ti ti-edit-circle f-18"></i>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="flex-grow-1 ms-3">
+                                                                                            <div class="msg-content bg-primary">
+                                                                                                <p class="mb-0">
+                                                                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                                                                                                    industry's standard dummy text ever since the 1500s.
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer py-2 px-3">
+                                                                    <textarea class="form-control border-0 shadow-none" placeholder="Type a Message" rows="2"></textarea>
+                                                                    <hr class="my-2" />
+                                                                    <div class="d-sm-flex align-items-center">
+                                                                        <ul class="list-inline me-auto mb-0">
+                                                                            <li class="list-inline-item">
+                                                                                <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                    <i class="ti ti-paperclip f-18"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="list-inline-item">
+                                                                                <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                    <i class="ti ti-photo f-18"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="list-inline-item">
+                                                                                <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                    <i class="ti ti-mood-smile f-18"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="list-inline-item">
+                                                                                <a href="#" class="avtar avtar-xs btn-link-secondary">
+                                                                                    <i class="ti ti-volume f-18"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <ul class="list-inline ms-auto mb-0">
+                                                                            <li class="list-inline-item">
+                                                                                <a href="#" class="avtar avtar-s btn-link-primary">
+                                                                                    <i class="ti ti-send f-18"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    @* <div class="card-header p-2">
+                                                        <img src="https://cjvietnam.vn/images/cj_logo_w.png" class="img-fluid" alt="logo" />
+                                                        <div class="m-2">Sey bot</div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                    </div>
+                                                    <div class="card-footer">
+                                                    </div> *@
+                                                </div>
+
+                                                <div class="col-12 p-0 mt-4">
+                                                    <button type="button" class="btn btn-warning" id="btn-open-chatbot"><i class="ph-duotone ph-chat-circle-dots"></i></button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
+                        </form>
                     </div>
                     <!-- END: Define your tab pans here -->
                 </div>

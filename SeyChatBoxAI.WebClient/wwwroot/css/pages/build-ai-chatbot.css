@@ -144,10 +144,103 @@
     margin-bottom: 15px;
 }
 
-#web-urls-tab button i {
-    vertical-align: text-top;
-}
+    #web-urls-tab button i {
+        vertical-align: text-top;
+    }
 
 #web-urls-tab .button-groups {
     text-align: right;
 }
+
+#publishing-chatbot .analytics-tab li.nav-item {
+    width: 50%;
+}
+
+    #publishing-chatbot .analytics-tab li.nav-item button {
+        width: 100%;
+        justify-content: center;
+    }
+
+#publishing-chatbot .bot-icon-attachment {
+    width: 100px;
+}
+
+    #publishing-chatbot .bot-icon-attachment .user-upload {
+        border-radius: 0% !important;
+        margin-top: 5px;
+    }
+
+#publishing-chatbot .bot-icon-note p {
+    margin-bottom: 5px;
+    /*margin-top: 5px;*/
+}
+
+#publishing-chatbot .bot-icon-note ul {
+    padding-left: 15px;
+}
+
+#publishing-chatbot #btn-save-settings {
+    float: right;
+}
+
+#publishing-chatbot #customize-settings .card-body {
+    height: 600px;
+}
+
+    #publishing-chatbot #customize-settings .card-body textarea {
+        height: 100%;
+    }
+
+#publishing-chatbot #preview-settings .card.preview-settings-group {
+    background-color: #ddd;
+}
+
+    #publishing-chatbot #preview-settings .card.preview-settings-group .preview-settings-group-body .row {
+        /*height: 70%;*/
+        margin: 0;
+        width: 70%;
+    }
+
+#publishing-chatbot #preview-settings .card-body.preview-settings-group-body {
+    height: 665px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+}
+
+
+#publishing-chatbot #preview-settings .preview-settings-group-body .shadow .card-header {
+    display: flex;
+    align-items: center;
+    background-color: #fd7e14;
+}
+
+    #publishing-chatbot #preview-settings .preview-settings-group-body .shadow .card-header img {
+        width: 80px;
+    }
+
+    #publishing-chatbot #preview-settings .preview-settings-group-body .shadow .card-header .chat-avtar .chat-badge {
+       bottom: 10px;
+    }
+
+    #publishing-chatbot #preview-settings .preview-settings-group-body .shadow .card-header div {
+        color: #fff;
+    }
+
+#publishing-chatbot #preview-settings .preview-settings-group-body .shadow .card-body,
+#publishing-chatbot #preview-settings .preview-settings-group-body .shadow .card-footer {
+    background-color: #fff;
+}
+
+.chat-message.scroll-block {
+    height: 240px !important;
+}
+
+#publishing-chatbot #preview-settings .preview-settings-group-body #btn-open-chatbot {
+    background-color: #fd7e14 !important;
+    float: right;
+}
+
+    #publishing-chatbot #preview-settings .preview-settings-group-body #btn-open-chatbot i {
+        font-size: 22px;
+    }
