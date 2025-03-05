@@ -1,0 +1,201 @@
+﻿@{
+    ViewData["Title"] = "Rating & Feedback";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="css/plugins/style.css" />
+
+    <style type="text/css">
+        #tbl-feedback-list th button {
+            padding-left: 0;
+        }
+    </style>
+}
+
+@section Scripts {
+    <!-- [Page Specific JS] start -->
+    <script src="js/plugins/simple-datatables.js"></script>
+    <script>
+        const data = {
+          headings: ['Chat Id', 'Chat Title', 'User Id', 'Rating', 'Feedback', '', 'Updated Date'],
+          data: [
+            [1192, 'hello', '069b6a57-5edb-4472-be3f-44a245b8c02d', 2, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1193, 'Sey Solutions outsource is greate', '069b6a57-5edb-4472-be3f-44a245b8c02d', 5, 'Good company in Vietnam market', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1194, 'Good morning', '069b6a57-5edb-4472-be3f-44a245b8c02d', 5, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1195, 'hello 1', '069b6a57-5edb-4472-be3f-44a245b8c02d', 3, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1196, 'hello 2', '069b6a57-5edb-4472-be3f-44a245b8c02d', 4, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1197, 'hello 3', '069b6a57-5edb-4472-be3f-44a245b8c02d', 1, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1198, 'hello 4', '069b6a57-5edb-4472-be3f-44a245b8c02d', 3.5, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1199, 'hello 5', '069b6a57-5edb-4472-be3f-44a245b8c02d', 1.5, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1200, 'hello 6', '069b6a57-5edb-4472-be3f-44a245b8c02d', 2, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1201, 'hello 7', '069b6a57-5edb-4472-be3f-44a245b8c02d', 2, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1202, 'hello 8', '069b6a57-5edb-4472-be3f-44a245b8c02d', 2.5, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1203, 'hello 9', '069b6a57-5edb-4472-be3f-44a245b8c02d', 2, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1204, 'hello 10', '069b6a57-5edb-4472-be3f-44a245b8c02d', 4.5, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1205, 'hello 11', '069b6a57-5edb-4472-be3f-44a245b8c02d', 2, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1206, 'hello 12', '069b6a57-5edb-4472-be3f-44a245b8c02d', 5, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1207, 'hello 13', '069b6a57-5edb-4472-be3f-44a245b8c02d', 2, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1208, 'hello 14', '069b6a57-5edb-4472-be3f-44a245b8c02d', 3, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1209, 'hello 15', '069b6a57-5edb-4472-be3f-44a245b8c02d', 2, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1210, 'hello 16', '069b6a57-5edb-4472-be3f-44a245b8c02d', 3.5, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+            [1211, 'hello 17', '069b6a57-5edb-4472-be3f-44a245b8c02d', 2, '', 'Oct 18, 2024', 'Oct 18, 2024'],
+          ]
+        };
+        // Add Icon
+        const renderIcon = function (data, _cell, _dataIndex, _cellIndex) {
+            let rateIcon = '<i class="fas fa-star text-warning"></i> '
+
+            if (data < 5) {
+                rateIcon = '<i class="fas fa-star-half-alt text-warning"></i> ';
+            }
+
+            return rateIcon + `${data}`;
+        };
+        // Price column cell manipulation
+        const renderButton = function (data, cell, dataIndex, _cellIndex) {
+          cell.childNodes.push({
+            nodeName: 'BUTTON',
+            attributes: {
+              'data-row': dataIndex,
+              class: 'btn btn-success btn-sm ms-3'
+            },
+            childNodes: [
+              {
+                nodeName: '#text',
+                data: 'Buy Now'
+              }
+            ]
+          });
+        };
+        // Caffeinated column cell manipulation
+        const renderYesNo = function (data, cell, _dataIndex, _cellIndex) {
+          if ([true, false].includes(data)) {
+            cell.childNodes = [
+              {
+                nodeName: 'B',
+                childNodes: [
+                  {
+                    nodeName: '#text',
+                    data: data === true ? ' Yes ' : ' No '
+                  }
+                ]
+              }
+            ];
+          }
+        };
+
+        // numbers
+        const renderHighLow = function (data, cell, _dataIndex, _cellIndex) {
+          const cellTextNode = cell.childNodes[0];
+          const currencyNode = {
+            nodeName: 'SPAN',
+            attributes: {
+              class: 'currency '
+            },
+            childNodes: [cellTextNode]
+          };
+          cell.childNodes = [currencyNode];
+
+          if (data < 0) {
+            currencyNode.attributes.class += 'text-danger';
+          } else if (data > 0) {
+            currencyNode.attributes.class += 'text-success';
+          } else if (data == 0) {
+            currencyNode.attributes.class += 'text-body';
+          }
+        };
+        new window.simpleDatatables.DataTable('#tbl-feedback-list', {
+          data,
+          perPage: 10,
+          rowRender: (row, tr, _index) => {
+            if ([true, false].includes(row.cells[3].data)) {
+              if (!tr.attributes?.class) {
+                if (!tr.attributes) {
+                  tr.attributes = {};
+                }
+                tr.attributes.class = row.cells[3].data === true ? 'text-success' : 'text-danger';
+              } else {
+                tr.attributes.class += row.cells[3].data === true ? 'text-success' : 'text-danger';
+              }
+            }
+          },
+          columns: [
+            {
+              select: 0,
+              // hidden: true,
+              type: 'number'
+            },
+            {
+              select: 1,
+              // render: renderIcon,
+              type: 'string'
+            },
+            {
+              select: 2,
+              // render: renderButton,
+              type: 'string'
+            },
+            {
+              select: 3,
+              render: renderIcon,
+              type: 'string'
+            },
+            {
+              select: 4,
+              // render: renderHighLow,
+              type: 'string'
+            },
+            {
+              select: 5,
+              // render: renderHighLow,
+              type: 'string'
+            },
+            {
+              select: 6,
+              // render: renderHighLow,
+              type: 'string'
+            }
+          ]
+        });
+    </script>
+
+    <!-- [Page Specific JS] end -->
+}
+
+<!-- [ breadcrumb ] start -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-default-icon m-0">
+        <li class="breadcrumb-item">
+            <a href="/"> <i class="ti ti-home-2 fs-6"></i></a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Rating & Feedback</li>
+    </ol>
+</nav>
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <h2 class="mb-0">Rating & Feedback</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<div class="row" id="chats">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Feedback List</h5>
+                @* <span class="d-block m-t-5">use class <code>table</code> inside table element</span> *@
+            </div>
+            <div class="card-body table-border-style">
+                <div class="table-responsive">
+                    <table class="table" id="tbl-feedback-list"> </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
